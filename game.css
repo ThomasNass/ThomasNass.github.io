@@ -1,0 +1,7 @@
+.blueButton {
+    background-color: rgba(24, 66, 253);
+    color:  rgba(255, 230, 0);
+}.yellowButton {
+    background-color: rgba(255, 230, 0);
+    color: rgba(24, 66, 253);
+}
