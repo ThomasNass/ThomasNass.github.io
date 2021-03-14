@@ -2,4 +2,4 @@ const winner = localStorage.winner;
 
 const body = document.body;
 
-body.textContent = `the winner is ${winner}!!`;
+body.textContent = `Vinnaren är ${winner}!!`;

@@ -1,11 +1,12 @@
-
+const timerButton = document.querySelector('#timerButton');
 const ordspråkDisplay = document.querySelector('#display');
-const ordspråkButton = document.querySelector("#button");
+const ordspråkButton = document.querySelector("#ordspråkButton");
 let winningDisplay = document.querySelector("#wDisplay");
 let numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
+
 // function to dynamically add player buttons
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
@@ -27,49 +28,6 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
     })
 }
 
-for (let i = 0; i < numberOfPlayers.length; i++) {
-
-}
-
-
-// function MakePlayer(score, button, display) {
-//     this.score = score;
-//     this.button = button;
-//     this.display = display;
-// }
-// for (let i = 0; i < numberOfPlayers.length; i++) {
-//     = MakePlayer()
-// }
-
-// const p1 = {
-//     score: 0,
-//     button: document.querySelector("#p1Button")
-// }
-
-// const p2 = {
-//     score: 0,
-//     button: document.querySelector("#p2Button")
-// }
-
-// const p3 = {
-//     score: 0,
-//     button: document.querySelector("#p3Button")
-// }
-
-// const p4 = {
-//     score: 0,
-//     button: document.querySelector("#p4Button")
-// }
-
-// const p5 = {
-//     score: 0,
-//     button: document.querySelector("#p5Button")
-// }
-
-// const p6 = {
-//     score: 0,
-//     button: document.querySelector("#p6Button")
-// }
 
 const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
     "Barka åt skogen", "Hålla sig på mattan"];
@@ -79,9 +37,34 @@ function ordspråk() {
     ordspråkDisplay.innerHTML =
         array[Math.floor(Math.random() * array.length)];
 }
+
 ordspråkButton.addEventListener('click', function () {
     ordspråk();
 })
+
+timerButton.addEventListener('click', function(){
+    let twoMinutes = 60 * 2,
+        display = ordspråkDisplay;
+    startTimer(twoMinutes, display);
+})
+
+function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
 
 function updateScores(player) {
     if (!isGameOver) {
@@ -99,38 +82,3 @@ function updateScores(player) {
 
 
 
-// detta funkade inte
-// for (let i = 0; i < numberOfPlayers.length; i++) {
-//     let x = `p${i + 1}`;
-//     console.log(x);
-//     x.button.addEventListener("click", () => {
-//         updateScores(x)
-//     })
-// }
-
-// document.addEventListener('click', function (e) {
-//     if (e.target && e.target.class == 'blueButton') {
-//         console.log(e.target.class)
-//         updateScores(this)
-//     }
-// });
-
-// p1.button.addEventListener("click", () => {
-//     updateScores(p1)
-// })
-
-// p2.button.addEventListener("click", () => {
-//     updateScores(p2)
-// })
-// p3.button.addEventListener("click", () => {
-//     updateScores(p3)
-// })
-// p4.button.addEventListener("click", () => {
-//     updateScores(p4)
-// })
-// p5.button.addEventListener("click", () => {
-//     updateScores(p5)
-// })
-// p6.button.addEventListener("click", () => {
-//     updateScores(p6)
-// })
