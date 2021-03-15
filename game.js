@@ -34,7 +34,7 @@ const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
 
 
 function ordspråk() {
-    ordspråkDisplay.innerHTML =
+    ordspråkDisplay.textContent =
         array[Math.floor(Math.random() * array.length)];
 }
 
@@ -42,14 +42,12 @@ ordspråkButton.addEventListener('click', function () {
     ordspråk();
 })
 
-timerButton.addEventListener('click', function(){
-    let twoMinutes = 60 * 2,
-        display = ordspråkDisplay;
-    startTimer(twoMinutes, display);
+timerButton.addEventListener('click', function () {
+    startTimer();
 })
 
-function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
+function startTimer() {
+    let timer = duration = 20, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -57,11 +55,13 @@ function startTimer(duration, display) {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = duration;
+        ordspråkDisplay.textContent = minutes + ":" + seconds;
+        if (timer > 0) {
+            timer--;
         }
+        else
+            ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person."
+
     }, 1000);
 }
 
