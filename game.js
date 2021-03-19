@@ -1,11 +1,12 @@
 const timerButton = document.querySelector('#timerButton');
 const ordspråkDisplay = document.querySelector('#display');
 const ordspråkButton = document.querySelector("#ordspråkButton");
-let winningDisplay = document.querySelector("#wDisplay");
-let numberOfPlayers = JSON.parse(localStorage.myPlayers)
+const winningDisplay = document.querySelector("#wDisplay");
+const numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
+let timerActive = false;
 
 // function to dynamically add player buttons
 // with the names from local storage
@@ -24,7 +25,7 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
     parent.appendChild(playerButton);
     numberOfPlayers[i] = { score: 0, button: playerButton };
     numberOfPlayers[i].button.addEventListener("click", () => {
-        updateScores(numberOfPlayers[i])
+        updateScores(numberOfPlayers[i]);
     })
 }
 
@@ -39,6 +40,7 @@ function ordspråk() {
 }
 
 ordspråkButton.addEventListener('click', function () {
+    myStopFunction();
     ordspråk();
 })
 
@@ -46,9 +48,10 @@ timerButton.addEventListener('click', function () {
     startTimer();
 })
 
+
 function startTimer() {
-    let timer = duration = 20, minutes, seconds;
-    setInterval(function () {
+    let timer = 5, minutes, seconds;
+    const interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -56,12 +59,12 @@ function startTimer() {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         ordspråkDisplay.textContent = minutes + ":" + seconds;
-        if (timer > 0) {
-            timer--;
+        if (timer === 0) {
+            ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person.";
+            clearInterval(interval)
         }
         else
-            ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person."
-
+        timer--;
     }, 1000);
 }
 
