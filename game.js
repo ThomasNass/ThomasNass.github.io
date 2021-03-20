@@ -8,6 +8,7 @@ const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
 timerButton.disabled = true;
+
 // function to dynamically add player buttons
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
@@ -28,7 +29,7 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
     numberOfPlayers[i].button.addEventListener("click", () => {
         updateScores(numberOfPlayers[i]);
     })
-    // numberOfPlayers[i].button = disabled = true;
+    numberOfPlayers[i].button.disabled = true;
 }
 
 
@@ -48,9 +49,9 @@ timerButton.addEventListener('click', function () {
 
 function startTimer() {
     timerButton.disabled = true;
-    // for (let i = 0; i < numberOfPlayers.length; i++) {
-    //     numberOfPlayers[i].button = disabled = false;
-    // }
+    for (let i = 0; i < numberOfPlayers.length; i++) {
+        numberOfPlayers[i].button.disabled = false;
+    }
     let timer = 5, minutes, seconds;
     const interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -94,6 +95,9 @@ function updateScores(player) {
     }
     player.button.textContent = `${player.button.name} poäng: ${player.score}`;
     ordspråkButton.disabled = false;
+    for (let i = 0; i < numberOfPlayers.length; i++) {
+        numberOfPlayers[i].button.disabled = true;
+    }
 }
 
 
