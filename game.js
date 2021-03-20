@@ -2,7 +2,6 @@ const timerButton = document.querySelector('#timerButton');
 const ordspråkDisplay = document.querySelector('#display');
 const ordspråkButton = document.querySelector("#ordspråkButton");
 const winningDisplay = document.querySelector("#wDisplay");
-const playerButtons = document.querySelector('.playerButton');
 const numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
@@ -13,13 +12,11 @@ timerButton.disabled = true;
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
     let playerButton = document.createElement("button");
-    // playerButton.setAttribute("id", `p${[i + 1]}Button`);
-    playerButton.setAttribute("class", "playerButton");
     if (i % 2 === 0) {
         playerButton.setAttribute("class", "blueButton");
     }
     else {
-        playerButton.setAttribute("class", "yellowButton")
+        playerButton.setAttribute("class", "yellowButton");
     }
     playerButton.setAttribute("name", `${numberOfPlayers[i]}`);
     playerButton.textContent = `${numberOfPlayers[i]}, poäng: 0`;
