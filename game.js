@@ -6,7 +6,6 @@ const numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
-let timerActive = false;
 
 // function to dynamically add player buttons
 // with the names from local storage
@@ -34,13 +33,7 @@ const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
     "Barka åt skogen", "Hålla sig på mattan"];
 
 
-function ordspråk() {
-    ordspråkDisplay.textContent =
-        array[Math.floor(Math.random() * array.length)];
-}
-
 ordspråkButton.addEventListener('click', function () {
-    myStopFunction();
     ordspråk();
 })
 
@@ -50,6 +43,7 @@ timerButton.addEventListener('click', function () {
 
 
 function startTimer() {
+    timerButton.disabled = true;
     let timer = 5, minutes, seconds;
     const interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -60,14 +54,24 @@ function startTimer() {
 
         ordspråkDisplay.textContent = minutes + ":" + seconds;
         if (timer === 0) {
-            ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person.";
-            clearInterval(interval)
+            clearTimer(interval);
         }
         else
         timer--;
     }, 1000);
 }
 
+function clearTimer(x){
+    ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person.";
+    clearInterval(x);
+    timerButton.disabled = false;
+}
+
+function ordspråk() {
+    ordspråkDisplay.textContent =
+        array[Math.floor(Math.random() * array.length)];
+        ordspråkButton.disabled = true;
+}
 
 function updateScores(player) {
     if (!isGameOver) {
