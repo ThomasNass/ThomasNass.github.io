@@ -2,16 +2,18 @@ const timerButton = document.querySelector('#timerButton');
 const ordspråkDisplay = document.querySelector('#display');
 const ordspråkButton = document.querySelector("#ordspråkButton");
 const winningDisplay = document.querySelector("#wDisplay");
+const playerButtons = document.querySelector('.playerButton');
 const numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
-
+timerButton.disabled = true;
 // function to dynamically add player buttons
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
     let playerButton = document.createElement("button");
-    playerButton.setAttribute("id", `p${[i + 1]}Button`);
+    // playerButton.setAttribute("id", `p${[i + 1]}Button`);
+    playerButton.setAttribute("class", "playerButton");
     if (i % 2 === 0) {
         playerButton.setAttribute("class", "blueButton");
     }
@@ -26,7 +28,9 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
     numberOfPlayers[i].button.addEventListener("click", () => {
         updateScores(numberOfPlayers[i]);
     })
+    // numberOfPlayers[i].button = disabled = true;
 }
+
 
 
 const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
@@ -44,6 +48,9 @@ timerButton.addEventListener('click', function () {
 
 function startTimer() {
     timerButton.disabled = true;
+    // for (let i = 0; i < numberOfPlayers.length; i++) {
+    //     numberOfPlayers[i].button = disabled = false;
+    // }
     let timer = 5, minutes, seconds;
     const interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -57,20 +64,21 @@ function startTimer() {
             clearTimer(interval);
         }
         else
-        timer--;
+            timer--;
     }, 1000);
 }
 
-function clearTimer(x){
-    ordspråkDisplay.textContent = "Tiden är ute! Skicka telefonen till nästa person.";
+function clearTimer(x) {
+    ordspråkDisplay.textContent = "Skicka telefonen till nästa person.";
     clearInterval(x);
-    timerButton.disabled = false;
+    ordspråkButton.disabled = false;
 }
 
 function ordspråk() {
     ordspråkDisplay.textContent =
         array[Math.floor(Math.random() * array.length)];
-        ordspråkButton.disabled = true;
+    ordspråkButton.disabled = true;
+    timerButton.disabled = false;
 }
 
 function updateScores(player) {
@@ -85,6 +93,7 @@ function updateScores(player) {
 
     }
     player.button.textContent = `${player.button.name} poäng: ${player.score}`;
+    ordspråkButton.disabled = false;
 }
 
 
