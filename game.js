@@ -43,6 +43,7 @@ timerButton.addEventListener('click', function () {
     startTimer();
 })
 
+let interval = null;
 
 function startTimer() {
     timerButton.disabled = true;
@@ -50,7 +51,7 @@ function startTimer() {
         numberOfPlayers[i].button.disabled = false;
     }
     let timer = 5, minutes, seconds;
-    const interval = setInterval(function () {
+    interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -66,9 +67,9 @@ function startTimer() {
     }, 1000);
 }
 
-function clearTimer(x) {
+function clearTimer(interval) {
     ordspråkDisplay.textContent = "Skicka telefonen till nästa person.";
-    clearInterval(x);
+    clearInterval(interval);
     ordspråkButton.disabled = false;
 }
 
@@ -92,6 +93,7 @@ function updateScores(player) {
     }
     player.button.textContent = `${player.button.name} poäng: ${player.score}`;
     ordspråkButton.disabled = false;
+    clearTimer(interval);
     for (let i = 0; i < numberOfPlayers.length; i++) {
         numberOfPlayers[i].button.disabled = true;
     }
