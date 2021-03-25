@@ -1,10 +1,16 @@
 playerCount = document.querySelector("#playerCount");
 winningScore = document.querySelector("#winningScore");
 button = document.querySelector("button");
+timer = document.querySelector("#timer")
 
 // sending score to win to the next page
 winningScore.addEventListener("change", function () {
     localStorage.winningScore = parseInt(this.value);
+
+})
+// timer score to next page
+timer.addEventListener("change", function () {
+    localStorage.timer = parseInt(this.value);
 
 })
 

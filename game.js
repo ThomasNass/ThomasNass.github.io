@@ -4,6 +4,7 @@ const ordspråkButton = document.querySelector("#ordspråkButton");
 const winningDisplay = document.querySelector("#wDisplay");
 const numberOfPlayers = JSON.parse(localStorage.myPlayers)
 const winningScore = parseInt(localStorage.winningScore);
+const timerDuration = parseInt(localStorage.timer)
 winningDisplay.textContent = winningScore;
 let isGameOver = false;
 timerButton.disabled = true;
@@ -50,7 +51,7 @@ function startTimer() {
     for (let i = 0; i < numberOfPlayers.length; i++) {
         numberOfPlayers[i].button.disabled = false;
     }
-    let timer = 5, minutes, seconds;
+    let timer = timerDuration, minutes, seconds;
     interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
