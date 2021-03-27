@@ -31,9 +31,14 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
 }
 
 
+let array = [].map.call(document.querySelectorAll('i'), function(el) {
+    return el.innerText;
+});
 
-const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
-    "Barka åt skogen", "Hålla sig på mattan"];
+console.log(array)
+
+// const array = ["Surt sa räven om rönnbären", "Morgonstund har guld i mund",
+//     "Barka åt skogen", "Hålla sig på mattan"];
 
 
 ordspråkButton.addEventListener('click', function () {
