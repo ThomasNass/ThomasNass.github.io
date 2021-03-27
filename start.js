@@ -1,7 +1,7 @@
 playerCount = document.querySelector("#playerCount");
 winningScore = document.querySelector("#winningScore");
 button = document.querySelector("button");
-timer = document.querySelector("#timer")
+timer = document.querySelector("#timer");
 
 // sending score to win to the next page
 winningScore.addEventListener("change", function () {
