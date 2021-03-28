@@ -6,6 +6,9 @@ let ordenspråken = [].map.call(document.querySelectorAll('i'), function(el) {
     return el.innerText;
 });
 
+console.log(ordenspråken)
 
 // ordArr = Array.from(ordenspråken);
-console.log(ordenspråken);
+// let string = JSON.stringify(ordenspråken);
+// console.log(JSON.stringify(ordenspråken));
+// console.log(JSON.parse(string))
