@@ -1,0 +1,19 @@
+body {
+    background-color: #f2f283;
+    color: #346beb;
+}
+
+#display{
+    color:#346beb;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.blueButton {
+    background-color: #346beb;
+    color:  #f2f283;
+}.yellowButton {
+    background-color: #f2f283;
+    color: #346beb;
+}
+
