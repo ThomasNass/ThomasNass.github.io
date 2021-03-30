@@ -13,12 +13,11 @@ timerButton.disabled = true;
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
     let playerButton = document.createElement("button");
-    playerButton.setAttribute("class", "playerButton");
     if (i % 2 === 0) {
-        playerButton.setAttribute("class", "blueButton");
+        playerButton.setAttribute("class", "playerButton blueButton");
     }
     else {
-        playerButton.setAttribute("class", "yellowButton");
+        playerButton.setAttribute("class", "playerButton yellowButton");
     }
     playerButton.setAttribute("name", `${numberOfPlayers[i]}`);
     playerButton.textContent = `${numberOfPlayers[i]}, poäng: 0`;
@@ -30,6 +29,75 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
     })
     numberOfPlayers[i].button.disabled = true;
 }
+
+
+
+
+
+ordspråkButton.addEventListener('click', function () {
+    ordspråk();
+})
+
+timerButton.addEventListener('click', function () {
+    startTimer();
+})
+
+let interval = null;
+
+function startTimer() {
+    timerButton.disabled = true;
+    for (let i = 0; i < numberOfPlayers.length; i++) {
+        numberOfPlayers[i].button.disabled = false;
+    }
+    let timer = timerDuration, minutes, seconds;
+    interval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        ordspråkDisplay.textContent = minutes + ":" + seconds;
+        if (timer === 0) {
+            clearTimer(interval);
+        }
+        else
+            timer--;
+    }, 1000);
+}
+
+function clearTimer(interval) {
+    ordspråkDisplay.textContent = "Skicka telefonen till nästa person.";
+    clearInterval(interval);
+    ordspråkButton.disabled = false;
+}
+
+function ordspråk() {
+    ordspråkDisplay.textContent =
+        array[Math.floor(Math.random() * array.length)];
+    ordspråkButton.disabled = true;
+    timerButton.disabled = false;
+}
+
+function updateScores(player) {
+    if (!isGameOver) {
+        player.score++;
+        if (player.score === winningScore) {
+            isGameOver = true;
+            player.button.textContent = `${player.button.name} poäng: ${player.score}`;
+            localStorage.winner = player.button.name;
+            location.href = "win.html";
+        }
+
+    }
+    player.button.textContent = `${player.button.name} poäng: ${player.score}`;
+    ordspråkButton.disabled = false;
+    clearTimer(interval);
+    for (let i = 0; i < numberOfPlayers.length; i++) {
+        numberOfPlayers[i].button.disabled = true;
+    }
+}
+
 
 
 const array = [
@@ -1445,74 +1513,4 @@ const array = [
     "Öppna korpgluggarna",
     "Över min döda kropp",
     "Överlevt sig själv"
-]
-
-    ;
-
-
-ordspråkButton.addEventListener('click', function () {
-    ordspråk();
-})
-
-timerButton.addEventListener('click', function () {
-    startTimer();
-})
-
-let interval = null;
-
-function startTimer() {
-    timerButton.disabled = true;
-    for (let i = 0; i < numberOfPlayers.length; i++) {
-        numberOfPlayers[i].button.disabled = false;
-    }
-    let timer = timerDuration, minutes, seconds;
-    interval = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        ordspråkDisplay.textContent = minutes + ":" + seconds;
-        if (timer === 0) {
-            clearTimer(interval);
-        }
-        else
-            timer--;
-    }, 1000);
-}
-
-function clearTimer(interval) {
-    ordspråkDisplay.textContent = "Skicka telefonen till nästa person.";
-    clearInterval(interval);
-    ordspråkButton.disabled = false;
-}
-
-function ordspråk() {
-    ordspråkDisplay.textContent =
-        array[Math.floor(Math.random() * array.length)];
-    ordspråkButton.disabled = true;
-    timerButton.disabled = false;
-}
-
-function updateScores(player) {
-    if (!isGameOver) {
-        player.score++;
-        if (player.score === winningScore) {
-            isGameOver = true;
-            player.button.textContent = `${player.button.name} poäng: ${player.score}`;
-            localStorage.winner = player.button.name;
-            location.href = "win.html";
-        }
-
-    }
-    player.button.textContent = `${player.button.name} poäng: ${player.score}`;
-    ordspråkButton.disabled = false;
-    clearTimer(interval);
-    for (let i = 0; i < numberOfPlayers.length; i++) {
-        numberOfPlayers[i].button.disabled = true;
-    }
-}
-
-
-
+];
