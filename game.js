@@ -13,6 +13,7 @@ timerButton.disabled = true;
 // with the names from local storage
 for (let i = 0; i < numberOfPlayers.length; i++) {
     let playerButton = document.createElement("button");
+    playerButton.setAttribute("class", "playerButton");
     if (i % 2 === 0) {
         playerButton.setAttribute("class", "blueButton");
     }

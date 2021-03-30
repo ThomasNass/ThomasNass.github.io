@@ -9,6 +9,10 @@ body {
     font-weight: bold;
 }
 
+.playerButton{
+    width: 100%;
+}
+
 .blueButton {
     background-color: #346beb;
     color:  #f2f283;
