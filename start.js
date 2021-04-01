@@ -25,7 +25,7 @@ playerCount.addEventListener("change", function () {
 const addPlayer = function (players) {
     let label = document.createElement("label");
     label.setAttribute("type", "label")
-    label.textContent = "Skriv in spelarnas namn";
+    label.innerHTML = "Skriv in spelarnas namn: <br>";
     let parent = document.querySelector("#textFields");
     parent.appendChild(label)
     for (let i = 0; i < players; i++) {
