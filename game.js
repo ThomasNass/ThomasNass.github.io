@@ -67,14 +67,16 @@ function startTimer() {
 }
 
 function clearTimer(interval) {
-    ordspråkDisplay.textContent = "Skicka telefonen till nästa person.";
+    ordspråkDisplay.innerHTML = `${idiom}.<br>Skicka telefonen till nästa person.`;
     clearInterval(interval);
     ordspråkButton.disabled = false;
 }
 
+let idiom = null;
 function ordspråk() {
-    ordspråkDisplay.textContent =
-        array[Math.floor(Math.random() * array.length)];
+    
+    idiom = array[Math.floor(Math.random() * array.length)];
+    ordspråkDisplay.textContent = idiom;
     ordspråkButton.disabled = true;
     timerButton.disabled = false;
 }
