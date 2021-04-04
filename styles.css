@@ -51,7 +51,7 @@ body {
     
     align-items:center;
     flex-direction: row;
-    height: 25px;
+    height: 40px;
 }
 
 .bottom{
@@ -66,6 +66,10 @@ body {
 }
 
 
+.midButtons{
+    font-size: 1.2em;
+    margin: 5px;
+}
 
 .playerButton{
     width: 100%;

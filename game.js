@@ -1,4 +1,5 @@
 const timerButton = document.querySelector('#timerButton');
+const skipButton = document.querySelector('#skipButton');
 const ordspråkDisplay = document.querySelector('#display');
 const ordspråkButton = document.querySelector("#ordspråkButton");
 const winningDisplay = document.querySelector("#wDisplay");
@@ -6,7 +7,7 @@ const numberOfPlayers = JSON.parse(localStorage.myPlayers);
 const winningScore = parseInt(localStorage.winningScore);
 const timerDuration = parseInt(localStorage.timer);
 winningDisplay.textContent = winningScore;
-let isGameOver = false;
+skipButton.disabled = true;
 timerButton.disabled = true;
 
 // function to dynamically add player buttons
@@ -35,6 +36,11 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
 
 
 ordspråkButton.addEventListener('click', function () {
+    skipButton.disabled = false;
+    ordspråk();
+})
+skipButton.addEventListener('click', function () {
+    skipButton.disabled = true;
     ordspråk();
 })
 
@@ -43,8 +49,8 @@ timerButton.addEventListener('click', function () {
 })
 
 let interval = null;
-
 function startTimer() {
+    skipButton.disabled =true;
     timerButton.disabled = true;
     for (let i = 0; i < numberOfPlayers.length; i++) {
         numberOfPlayers[i].button.disabled = false;
@@ -82,7 +88,6 @@ function ordspråk() {
 }
 
 function updateScores(player) {
-    if (!isGameOver) {
         player.score++;
         if (player.score === winningScore) {
             isGameOver = true;
@@ -91,9 +96,9 @@ function updateScores(player) {
             location.href = "win.html";
         }
 
-    }
     player.button.textContent = `${player.button.name} poäng: ${player.score}`;
     ordspråkButton.disabled = false;
+    skipButton.disabled = true;
     clearTimer(interval);
     for (let i = 0; i < numberOfPlayers.length; i++) {
         numberOfPlayers[i].button.disabled = true;
@@ -1045,7 +1050,6 @@ const array = [
     "Sitta i klistret",
     "Sitta i knät på någon",
     "Sitta i orubbat bo",
-    "Själv hade Mussolini kunnat sitta kvar i orubbat bo, och antagligen gått till historien som...",
     "Sitta i samma båt",
     "Sitta i väggarna",
     "Sitta inne",
