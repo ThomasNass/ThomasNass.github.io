@@ -9,6 +9,8 @@ const timerDuration = parseInt(localStorage.timer);
 winningDisplay.textContent = winningScore;
 skipButton.disabled = true;
 timerButton.disabled = true;
+let currPlayer = numberOfPlayers[0];
+ordspråkDisplay.textContent = `Ge enheten till ${numberOfPlayers[0]}`;
 
 // function to dynamically add player buttons
 // with the names from local storage
@@ -72,8 +74,22 @@ function startTimer() {
     }, 1000);
 }
 
+// function nextPlayer(){
+//     for(i=0;i<numberOfPlayers.length;i++){
+//         if (i>numberOfPlayers.length){
+//             i = 0;
+//         }
+//         else return numberOfPlayers[i];
+// }
+// }
 function clearTimer(interval) {
-    ordspråkDisplay.innerHTML = `${idiom}.<br>Skicka telefonen till nästa person.`;
+    // nextPlayer();
+    let j;
+    j++;
+    if (j === numberOfPlayers.length){
+        j=0;
+    }
+    ordspråkDisplay.innerHTML = `${idiom}.<br>Skicka telefonen till ${currPlayer.button.name}.`;
     clearInterval(interval);
     ordspråkButton.disabled = false;
 }
