@@ -1,7 +1,7 @@
 const timerButton = document.querySelector('#timerButton');
 const skipButton = document.querySelector('#skipButton');
-const ordspråkDisplay = document.querySelector('#display');
-const ordspråkButton = document.querySelector("#ordspråkButton");
+const idiomDisplay = document.querySelector('#display');
+const idiomButton = document.querySelector("#idiomButton");
 const winningDisplay = document.querySelector("#wDisplay");
 const numberOfPlayers = JSON.parse(localStorage.myPlayers);
 const winningScore = parseInt(localStorage.winningScore);
@@ -9,11 +9,14 @@ const timerDuration = parseInt(localStorage.timer);
 winningDisplay.textContent = winningScore;
 skipButton.disabled = true;
 timerButton.disabled = true;
-let currPlayer = numberOfPlayers[0];
-ordspråkDisplay.textContent = `Ge enheten till ${numberOfPlayers[0]}`;
+idiomDisplay.textContent = `Ge enheten till ${numberOfPlayers[0]}`;
+const timeUp = new Audio("sounds/sadhorn.wav");
+const scoreSound = new Audio("sounds/success.wav");
+const timeStart = new Audio("sounds/starttime.wav");
+const timeRunning = new Audio("sounds/16sec.wav");
 
-// function to dynamically add player buttons
-// with the names from local storage
+// A loop to dynamically add player buttons with the names from local storage
+//Create an object for each button as well as an eventListener
 for (let i = 0; i < numberOfPlayers.length; i++) {
     let playerButton = document.createElement("button");
     if (i % 2 === 0) {
@@ -34,29 +37,33 @@ for (let i = 0; i < numberOfPlayers.length; i++) {
 }
 
 
-
-
-
-ordspråkButton.addEventListener('click', function () {
+idiomButton.addEventListener('click', function () {
     skipButton.disabled = false;
-    ordspråk();
+    idiomFunc();
 })
 skipButton.addEventListener('click', function () {
     skipButton.disabled = true;
-    ordspråk();
+    idiomFunc();
 })
 
 timerButton.addEventListener('click', function () {
     startTimer();
 })
 
+// function to start timer, disable skip and start timer again
+// enable player buttons
+// disables the drawers button
+// format the given time to display minutes and seconds
+// clear the timer at 0
 let interval = null;
 function startTimer() {
-    skipButton.disabled =true;
+    timeStart.play();
+    skipButton.disabled = true;
     timerButton.disabled = true;
     for (let i = 0; i < numberOfPlayers.length; i++) {
         numberOfPlayers[i].button.disabled = false;
     }
+    numberOfPlayers[j].button.disabled = true;
     let timer = timerDuration, minutes, seconds;
     interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -65,8 +72,12 @@ function startTimer() {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        ordspråkDisplay.textContent = minutes + ":" + seconds;
+        idiomDisplay.textContent = minutes + ":" + seconds;
+        if (timer === 16) {
+            timeRunning.play();
+        }
         if (timer === 0) {
+            timeUp.play();
             clearTimer(interval);
         }
         else
@@ -74,46 +85,55 @@ function startTimer() {
     }, 1000);
 }
 
-// function nextPlayer(){
-//     for(i=0;i<numberOfPlayers.length;i++){
-//         if (i>numberOfPlayers.length){
-//             i = 0;
-//         }
-//         else return numberOfPlayers[i];
-// }
-// }
-function clearTimer(interval) {
-    // nextPlayer();
-    let j;
+// function to loop through the players
+let j = 0;
+function nextPlayer() {
     j++;
-    if (j === numberOfPlayers.length){
-        j=0;
+    if (j === numberOfPlayers.length) {
+        j = 0;
     }
-    ordspråkDisplay.innerHTML = `${idiom}.<br>Skicka telefonen till ${currPlayer.button.name}.`;
+    else return numberOfPlayers[j];
+}
+// A function to clear the timer outside of the timer
+// also displays the current idiom as well as who goes next
+function clearTimer(interval) {
+    nextPlayer();
+    idiomDisplay.innerHTML = `${idiom}.<br>Skicka telefonen till ${numberOfPlayers[j].button.name}.`;
     clearInterval(interval);
-    ordspråkButton.disabled = false;
+    idiomButton.disabled = false;
 }
 
+// Function to generate random idiom from the array
 let idiom = null;
-function ordspråk() {
-    
+function idiomFunc() {
     idiom = array[Math.floor(Math.random() * array.length)];
-    ordspråkDisplay.textContent = idiom;
-    ordspråkButton.disabled = true;
+    idiomDisplay.textContent = idiom;
+    idiomButton.disabled = true;
     timerButton.disabled = false;
 }
-
+// Updates score of the drawer and the scorer when a player button is pressed
+// Checks if someone won and if it was a draw
+// Updates score visually on the button
+// clears the timer
+// disables all the player buttons
 function updateScores(player) {
-        player.score++;
-        if (player.score === winningScore) {
-            isGameOver = true;
-            player.button.textContent = `${player.button.name} poäng: ${player.score}`;
-            localStorage.winner = player.button.name;
-            location.href = "win.html";
-        }
-
+    scoreSound.play();
+    player.score++ & numberOfPlayers[j].score++;
+    if (player.score === winningScore && numberOfPlayers[j].score === winningScore) {
+        localStorage.winner = `${player.button.name} & ${numberOfPlayers[j].button.name}`;
+        location.href = "win.html";
+    }
+    else if (player.score === winningScore) {
+        localStorage.winner = `${player.button.name}`;
+        location.href = "win.html";
+    }
+    else if (numberOfPlayers[j].score === winningScore) {
+        localStorage.winner = `${numberOfPlayers[j].button.name}`;
+        location.href = "win.html"
+    }
+    numberOfPlayers[j].button.textContent = `${numberOfPlayers[j].button.name} poäng: ${numberOfPlayers[j].score}`;
     player.button.textContent = `${player.button.name} poäng: ${player.score}`;
-    ordspråkButton.disabled = false;
+    idiomButton.disabled = false;
     skipButton.disabled = true;
     clearTimer(interval);
     for (let i = 0; i < numberOfPlayers.length; i++) {
@@ -205,7 +225,7 @@ const array = [
     "Det står och faller med honom/henne/den/det",
     "Det täcka könet",
     "Det vete fåglarna",
-    "Ditt och datt – Lite av varje.",
+    "Ditt och datt",
     "Don efter person",
     "Dra/skära/ta alla över en/samma kam",
     "Dra/släpa benen efter sig",
@@ -219,7 +239,7 @@ const array = [
     "Dra/hålla i tåtarna",
     "Dra igång",
     "Dra ihop sig",
-    "Dra/ta lärdom av något – ",
+    "Dra/ta lärdom av något",
     "Dra mig baklänges",
     "Dra något gammalt över sig",
     "Dra något i långbänk",
@@ -238,7 +258,7 @@ const array = [
     "Dra åt svångremmen",
     "Dra öronen åt sig",
     "Dragen vid näsan",
-    "Dras med något –",
+    "Dras med något",
     "Driva något till sin spets",
     "Droppe i havet",
     "Droppen som fick bägaren att rinna över",
@@ -295,14 +315,14 @@ const array = [
     "full i sjutton",
     "Full rulle",
     "Full som en alika",
-    "Få betalt under bordet, få pengar under bordet –",
+    "Få betalt under bordet, få pengar under bordet",
     "Få blodad tand",
     "Få det hett om öronen",
     "Få en släng av sleven",
-    "Få en syl i vädret –",
+    "Få en syl i vädret",
     "Få ett kok stryk",
     "Få frispel",
-    "Få för gammal ost, få igen för gammal ost, få betalt för gammal ost, ge igen för gammal ost",
+    "Få för gammal ost, få betalt för gammal ost, ge igen för gammal ost",
     "Få fötter",
     "Få kalla fötter",
     "Få kalla handen",
@@ -317,7 +337,7 @@ const array = [
     "Få vatten på sin kvarn",
     "Få veta att man lever",
     "Få ändan ur vagnen",
-    "Född i farstun -",
+    "Född i farstun",
     "Född med en silversked i munnen",
     "Följa/gå i någons fotspår",
     "För allt smör i Småland",
@@ -331,8 +351,8 @@ const array = [
     "Försöka ta ner månen",
     "Förvalta sitt pund",
     "Förvrida huvudet på någon",
-    "Gammal i gården,",
-    "Gammal som gatan –",
+    "Gammal i gården",
+    "Gammal som gatan",
     "Gamla surdegar",
     "Ge järnet",
     "Ge någon en känga",
@@ -346,7 +366,7 @@ const array = [
     "Glad som en lärka",
     "Glimten i ögat",
     "Gnugga händerna",
-    "Goddag – yxskaft",
+    "Goddag yxskaft",
     "Gripa efter ett halmstrå",
     "Gripa/ta något ur luften",
     "Gripa tillfället i flykten",
@@ -470,7 +490,7 @@ const array = [
     "Hals över huvud",
     "Hamna i blåsväder",
     "Hamna i knipa",
-    "Hamna i skymundan –",
+    "Hamna i skymundan",
     "Hamna på överblivna kartan",
     "Han eller hon skulle inte göra en fluga förnär",
     "Han eller hon spottar inte i glaset",
@@ -695,10 +715,10 @@ const array = [
     "Komma på kant med någon",
     "Komma på skam",
     "Komma till skott med något",
-    "Komma till vägs ände –",
+    "Komma till vägs ände",
     "Komma undan helskinnad",
     "Komma undan med blotta förskräckelsen",
-    "Komma under lupp –",
+    "Komma under lupp",
     "Komma ur askan i elden",
     "Kors i taket",
     "Kosta skjortan",
@@ -932,7 +952,7 @@ const array = [
     "Pecunia non olet",
     "Peppar, peppar, ta i trä",
     "Pest eller kolera",
-    "Pigg som en mört – Vara mycket alert, kvick och vaken.",
+    "Pigg som en mört",
     "Plattan i mattan",
     "Plocka russinen ur kakan",
     "Polsk riksdag",
@@ -1177,7 +1197,7 @@ const array = [
     "Spel bakom kulisserna",
     "Spela Allan",
     "Spela andrafiolen",
-    "Spela ett högt spel –",
+    "Spela ett högt spel",
     "Spela i samma division",
     "Spela sina kort väl",
     "Spela under täcket med någon",
@@ -1291,7 +1311,7 @@ const array = [
     "Som ett brev på posten",
     "Sätta bocken till trädgårdsmästare",
     "Sätta en rova",
-    "Sätta fingret på något –",
+    "Sätta fingret på något",
     "Sätta in nådastöten",
     "Sätta käppar i hjulet",
     "Sätta livet till",
