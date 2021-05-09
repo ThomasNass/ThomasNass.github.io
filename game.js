@@ -106,8 +106,10 @@ function clearTimer(interval) {
 // Function to generate random idiom from the array
 let idiom = null;
 function idiomFunc() {
-    idiom = array[Math.floor(Math.random() * array.length)];
+    let r = Math.floor(Math.random() * array.length);
+    idiom = array[r];
     idiomDisplay.textContent = idiom;
+    array.splice(r,1);
     idiomButton.disabled = true;
     timerButton.disabled = false;
 }
