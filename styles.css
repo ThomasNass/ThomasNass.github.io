@@ -1,99 +1,78 @@
-html,
-body {
-    background-color: #f2f283;
-    color: #346beb;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    font-size: 1.2em;
-    font-family: sans-serif;
+*{
+    margin:0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    overflow: hidden;
+}
+
+.content{
+    
+    background-color: grey;
     
 }
- /* start.html */
- 
- label{
-     
- }
 
- select{
-     margin: 2px;
-     font-size: 1em;
- }
-input{
-    font-size: 1em;
-}
-#submitButton{
-    font-size: 1em;
-position:fixed;
-width: 100%;
-bottom: 10px;
-background-color: #346beb;
-color: #f2f283;
-
+.column{
+    float: left;
+    width: 50%;
+    height: 1080px;
+    
 }
 
-/* game.html */
-.container {
-    height: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
+.column{
+background-color:red;
 }
 
-.box{
+.column:last-of-type{
+background-color: turquoise;
+}
+
+.content:after{
+    content: "";
+    display: table;
+    clear:both;
+}
+
+
+
+.forms{
     text-align: center;
+    padding: 1em;
+    background-color: red;
 }
 
-.top{
-    align-self: center;
-    flex:1;
-    flex-grow: 1;
+.Rules{
+text-align: center;
 }
 
-.middle{
-    
-    align-items:center;
-    flex-direction: row;
-    height: 40px;
-}
-
-.bottom{
-    flex-direction: column;
-    
-}
-
-#display{
-    font-size: 1.5em;
-    color:#346beb;
-    font-weight: bold;
-}
-
-
-.midButtons{
-    font-size: 1em;
+.Rules h1, h2, p{
     margin: 5px;
+    padding: 10px;
 }
 
-.playerButton{
-    font-size: 1em;
+
+select{
+    text-align: center;
+    margin-top: 5px;
+    padding:1em;
     width: 100%;
-    height: 50px;
-    
 }
 
-.blueButton {
-    background-color: #346beb;
-    color:  #f2f283;
-}.yellowButton {
-    background-color: #f2f283;
-    color: #346beb;
+.players{
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding: 1em;
+    margin-top: 1em;
 }
 
-/* win.html */
- .winScreen{
-     text-align: center;
- }
- .winButtons{
-     font-size: 1em;
-     margin: 5px;
- }
+#submitButton{
+    position: absolute;
+    bottom: 0px;
+    padding: 2em;
+    width: 100%;
+}
