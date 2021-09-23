@@ -5,13 +5,201 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV&Portfolio</title>
+    <title>Portfolio Site</title>
+    <script src="https://kit.fontawesome.com/a6c416b03d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
+    <!-- Desktop Navbar -->
+    <section id="nav">
+        <div class="nav-bar">
+            <div class="links">
+                <ul class="ul-nav">
+                    <li><a href="#name" id="name">Thomas Näss</a></li>
+                    <li><a href="#projects" id="project">Projects</a></li>
+                    <li><a href="#about-link" id="about">About</a></li>
+                    <li><a href="#contact-link" id="contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Desktop Navbar End -->
 
-    <script src="../JS/script.js"></script>
+    <!-- Mobile Navbar -->
+    <section id="mobile-nav">
+        <div class="mobile-nav-bar">
+            <div class="links">
+                <ul class="ul-nav">
+                    <li><a href="#name"><i class="fas fa-home"></i></a></li>
+                    <li><a href="#projects" id="project"><i class="fas fa-folder"></i></a></li>
+                    <li><a href="#about-link" id="about"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#contact-link" id="contact"><i class="fas fa-envelope-open-text"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--Mobile Navbar End-->
+
+    <!-- Hero-->
+    <section id="hero">
+        <div class="container">
+            <div class="overlay">
+            </div>
+            <div class="image-container"></div>
+            <div class="hero-text">
+                <h1>
+                    <span class="lead">Your</span><br>Future
+                    <br>Developer
+                </h1>
+                <a href="#my-resume" class="resume-border"><span class="resume-link">Resume</span></a>
+            </div>
+        </div>
+    </section>
+    <!--Hero End -->
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="projects-container">
+            <div class="project-header">Projects</div>
+            <div class="projects">
+                <div class="project-item">
+                    <div class="idiom project-card">
+                        <div class="text-container">
+                            <h2 class="name">Idiom</h2>
+                            <div class="content">
+                                <p>Idiom is a draw-and-guess game, or a charade game, that's based around Swedish
+                                    idiomatic expressions. There are about 1500 expressions in the game and you can play
+                                    up to 6 players!
+                                </p>
+                            </div>
+                            <button class="button">
+                                <a href="https://github.com/ThomasNass/Idiom" target="blank" rel="noopener noreferrer">
+                                    <h3>View Project</h3>
+                                </a>
+                            </button>
+                            <button class="button">
+                                <a href="https://thomasnass.github.io/Idiom/" target="blank" rel="noopener noreferrer">
+                                    <h3>View Live</h3>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="Login project-card">
+                        <div class="text-container">
+                            <h2 class="name">Login page</h2>
+                            <div class="content">
+                                <p>A school assignement to practice the use of localStorage.
+                                </p>
+                            </div>
+                            <button class="button">
+                                <a href="https://github.com/ThomasNass/Login" target="blank" rel="noopener noreferrer">
+                                    <h3>View Project</h3>
+                                </a>
+                            </button>
+                            <button class="button">
+                                <a href="https://thomasnass.github.io/Login/" target="blank" rel="noopener noreferrer">
+                                    <h3>View Live</h3>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="eqPay project-card">
+                        <div class="text-container">
+                            <h2 class="name">EqPay</h2>
+                            <div class="content">
+                                <p>An app written in Python using Kivy to help two people split joint expenditure based
+                                    on their separete income.
+                                </p>
+                            </div>
+                            <button class="button">
+                                <a href="https://github.com/ThomasNass/EqPay" target="blank" rel="noopener noreferrer">
+                                    <h3>View Project</h3>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Projects End -->
+
+    <!-- About -->
+    <section id="about-link">
+        <div class="about-container">
+            <div class="about-section">
+                <div>
+                    <div class="about-image"></div>
+                </div>
+                <div class="about-text">
+                    <p> My name is Thomas Näss, a married man and a father of two. I love creating, be it music, wood
+                        working or coding. Nothing beats seeing something you've made come to life before you.</p>
+                    <br>
+                    <hr>
+                    <br>
+                    <p>
+                        I'm currently studying to become a web
+                        developer. So far I've tackled
+                        JavaScript, HTML, CSS and I will be learning .NET shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--About End -->
+
+    <!-- Resume -->
+    <section id="my-resume">
+        <div class="resume-container">
+            <div class="resume-section">
+
+                <div class="resume-text">
+                    <h3>Education</h3>
+                    <ul>
+                        <li>Network- and System Administration 2 years, University of Skövde</li>
+                        <li>Teacher education - science 2 years, Jönköping University</li>
+                        <li><a href="https://www.udemy.com/course/the-web-developer-bootcamp/" target="blank"
+                                rel="noopener noreferrer">Web
+                                Developer Bootcamp 2021, Udemy</a> </li>
+                        <li>Web Developer .NET, Värnamo (ongoing)</li>
+                    </ul>
+                    <h3>Work experience</h3>
+                    <ul>
+                        <li>Helpdesk - technical support 2 years, Elgiganten </li>
+                        <li>Technical Operator 2 years, Berry Superfos</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="resume-image"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Resume End -->
+
+    <!-- Social Icons -->
+    <section id="contact-link">
+        <div class="social-icons">
+            <div class="fb">
+                <a href="https://www.facebook.com/thomas.nass/" target="blank" rel="noopener noreferrer"><i
+                        class="fab fa-facebook"></i></a>
+            </div>
+            <div class="gm">
+                <a href="mailto: tn900323@gmail.com" target="blank" rel="noopener noreferrer"> <i
+                        class="far fa-envelope"></i></a>
+            </div>
+            <div class="gh">
+                <a href="https://github.com/ThomasNass?tab=repositories" target="blank" rel="noopener noreferrer"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
