@@ -359,17 +359,12 @@ h3 {
         height: 400px;
     }
 
-    .idiom {
+
+    .project-card {
         width: 250px;
     }
 
-    .Login {
-        width: 250px;
-    }
 
-    .eqPay {
-        width: 250px;
-    }
 
     .about-container {
         display: flex;
